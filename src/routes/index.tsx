@@ -1,112 +1,91 @@
-import { component$ } from "@builder.io/qwik";
+import {
+  component$,
+  useStylesScoped$,
+} from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
+import IntelImage from '~/media/threat-intel.png?jsx';
 
-import Counter from "../components/starter/counter/counter";
-import Hero from "../components/starter/hero/hero";
-import Infobox from "../components/starter/infobox/infobox";
-import Starter from "../components/starter/next-steps/next-steps";
 
 export default component$(() => {
+  useStylesScoped$(`
+  .layout {
+    background-image: 
+      radial-gradient(hsla(0, 0%, 80%, 0.2) 3px, transparent 0),
+      radial-gradient(hsla(0, 100%, 60%, 0.2) 2px, transparent 0);
+    background-size: 50px 50px;
+    background-position:
+      0 0,
+      25px 25px;
+    -webkit-animation: slide 1s linear infinite;
+    animation: slide 4s linear infinite;
+  }
+
+  @keyframes slide {
+    100% {
+      background-position:
+        50px 0,
+        125px 25px;
+    }
+  }
+
+  .cards:hover > .card::after {
+    opacity: 1;
+  }
+
+  .card::before {
+    background: radial-gradient(
+      800px circle at var(--mouse-x) var(--mouse-y),
+      rgba(255, 255, 255, 0.06),
+      transparent 40%
+    );
+    z-index: 3;
+  }
+
+  .card::after {
+    background: radial-gradient(
+      600px circle at var(--mouse-x) var(--mouse-y),
+      rgba(255, 255, 255, 0.4),
+      transparent 40%
+    );
+    z-index: 1;
+  }
+  `);
+
   return (
-    <>
-      <Hero />
-      <Starter />
-
-      <div role="presentation" class="ellipsis"></div>
-      <div role="presentation" class="ellipsis ellipsis-purple"></div>
-
-      <div class="container container-center container-spacing-xl">
-        <h3>
-          You can <span class="highlight">count</span>
-          <br /> on me
-        </h3>
-        <Counter />
-      </div>
-
-      <div class="container container-flex">
-        <Infobox>
-          <div q:slot="title" class="icon icon-cli">
-            CLI Commands
+    <main class="layout grid min-h-screen w-full place-items-center bg-[#141414] bg-fixed text-white selection:bg-zinc-300 selection:text-black">
+      <section class="p-5 h-screen">
+        {/*<IntelImage class="h-auto max-w-full mx-auto object-scale-down" />*/}
+          <IntelImage class="object-scale-down max-h-full m-auto p-6" />
+        <div class="grid items-center gap-6">
+          <div class="flex flex-col justify-center space-y-4 text-center">
+            <div class="mb-6 space-y-2">
+              <h1 class="bg-gradient-to-r from-white to-gray-500 bg-clip-text text-3xl font-bold tracking-tighter text-transparent sm:text-5xl xl:text-6xl">
+                Intel Observer
+              </h1>
+              <p class="mx-auto max-w-3xl text-sm text-zinc-200 sm:text-base md:text-xl">
+              Threat Intelligence Search Engine & News Aggregator
+              </p>
+            </div>
           </div>
-          <>
-            <p>
-              <code>npm run dev</code>
-              <br />
-              Starts the development server and watches for changes
-            </p>
-            <p>
-              <code>npm run preview</code>
-              <br />
-              Creates production build and starts a server to preview it
-            </p>
-            <p>
-              <code>npm run build</code>
-              <br />
-              Creates production build
-            </p>
-            <p>
-              <code>npm run qwik add</code>
-              <br />
-              Runs the qwik CLI to add integrations
-            </p>
-          </>
-        </Infobox>
-
-        <div>
-          <Infobox>
-            <div q:slot="title" class="icon icon-apps">
-              Example Apps
-            </div>
-            <p>
-              Have a look at the <a href="/demo/flower">Flower App</a> or the{" "}
-              <a href="/demo/todolist">Todo App</a>.
-            </p>
-          </Infobox>
-
-          <Infobox>
-            <div q:slot="title" class="icon icon-community">
-              Community
-            </div>
-            <ul>
-              <li>
-                <span>Questions or just want to say hi? </span>
-                <a href="https://qwik.builder.io/chat" target="_blank">
-                  Chat on discord!
-                </a>
-              </li>
-              <li>
-                <span>Follow </span>
-                <a href="https://twitter.com/QwikDev" target="_blank">
-                  @QwikDev
-                </a>
-                <span> on Twitter</span>
-              </li>
-              <li>
-                <span>Open issues and contribute on </span>
-                <a href="https://github.com/BuilderIO/qwik" target="_blank">
-                  GitHub
-                </a>
-              </li>
-              <li>
-                <span>Watch </span>
-                <a href="https://qwik.builder.io/media/" target="_blank">
-                  Presentations, Podcasts, Videos, etc.
-                </a>
-              </li>
-            </ul>
-          </Infobox>
         </div>
-      </div>
-    </>
+      </section>
+
+      <footer class="absolute inset-x-0 bottom-4 flex justify-center">
+        <em class="text-zinc-500">
+          &copy; {new Date().getFullYear()}{" "} Intel Observer
+        </em>
+      </footer>
+    </main>
   );
 });
 
 export const head: DocumentHead = {
-  title: "Welcome to Qwik",
+  title: "Intel Observer",
   meta: [
     {
-      name: "description",
-      content: "Qwik site description",
+      name: "Intel Observer",
+      content:
+        "Threat Intelligence Search Engine & News Aggregator",
     },
   ],
 };
